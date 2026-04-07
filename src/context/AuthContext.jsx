@@ -1,12 +1,12 @@
-import { createContext, useState, useContext, useEffect } from 'react';
-import authService from '../services/authService';
+import { createContext, useState, useContext, useEffect } from "react";
+import authService from "../services/authService";
 
 const AuthContext = createContext();
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within AuthProvider');
+    throw new Error("useAuth must be used within AuthProvider");
   }
   return context;
 };
@@ -20,30 +20,31 @@ export const AuthProvider = ({ children }) => {
     const currentAdmin = authService.getCurrentAdmin();
     if (currentAdmin) {
       setAdmin(currentAdmin);
+    } else {
+      // Bypass: set admin dummy supaya langsung masuk
+      setAdmin({ name: "Demo", role: "superadmin" });
     }
     setLoading(false);
   }, []);
 
   const login = async (credentials) => {
     try {
-      console.log('🔍 AuthContext: Attempting login...', credentials.username);
+      console.log("🔍 AuthContext: Attempting login...", credentials.username);
       const data = await authService.login(credentials);
-      console.log('✅ AuthContext: Login successful', data);
+      console.log("✅ AuthContext: Login successful", data);
       setAdmin(data);
       return { success: true };
     } catch (error) {
-      console.error('❌ AuthContext: Login error:', error.response?.data);
-      
-      // ========== TANGKAP SEMUA ERROR INFO DARI BACKEND ==========
+      console.error("❌ AuthContext: Login error:", error.response?.data);
+
       const errorData = error.response?.data || {};
-      
-      return { 
-        success: false, 
-        error: errorData.message || 'Login gagal',
-        errorType: errorData.errorType,           // ← TAMBAHKAN INI
-        accountDisabled: errorData.accountDisabled // ← SUDAH ADA
+
+      return {
+        success: false,
+        error: errorData.message || "Login gagal",
+        errorType: errorData.errorType,
+        accountDisabled: errorData.accountDisabled,
       };
-      // ===========================================================
     }
   };
 
@@ -53,9 +54,9 @@ export const AuthProvider = ({ children }) => {
       setAdmin(data);
       return { success: true };
     } catch (error) {
-      return { 
-        success: false, 
-        error: error.response?.data?.message || 'Register gagal' 
+      return {
+        success: false,
+        error: error.response?.data?.message || "Register gagal",
       };
     }
   };
@@ -65,14 +66,12 @@ export const AuthProvider = ({ children }) => {
     setAdmin(null);
   };
 
-  // Helper function to check if user is superadmin
   const isSuperAdmin = () => {
-    return admin?.role === 'superadmin';
+    return admin?.role === "superadmin";
   };
 
-  // Helper function to check if user is admin (any role)
   const isAdmin = () => {
-    return admin?.role === 'admin' || admin?.role === 'superadmin';
+    return admin?.role === "admin" || admin?.role === "superadmin";
   };
 
   const value = {
@@ -83,7 +82,7 @@ export const AuthProvider = ({ children }) => {
     isAuthenticated: !!admin,
     isSuperAdmin,
     isAdmin,
-    loading
+    loading,
   };
 
   return (
