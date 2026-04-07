@@ -1,0 +1,127 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #ecf0f1;
+  overflow-x: hidden;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Hover effects untuk button */
+button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  transition: all 0.2s;
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Hover effect untuk input */
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #3498db !important;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+/* Hover effect untuk link */
+a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: background-color 0.2s;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+  /* Sidebar Toggle Button */
+  aside + button,
+  button[style*="toggleBtn"] {
+    display: block !important;
+  }
+  
+  /* Hide sidebar on mobile by default */
+  aside[style*="sidebar"] {
+    position: fixed !important;
+    top: 73px !important;
+    left: 0 !important;
+    z-index: 1000 !important;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.2) !important;
+  }
+  
+  /* Table horizontal scroll */
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  /* Responsive buttons in forms */
+  button {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Stack form rows on mobile */
+  div[style*="gridTemplateColumns"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Tablet */
+@media (min-width: 769px) and (max-width: 1024px) {
+  aside[style*="sidebar"] {
+    width: 200px;
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #a7-print-area, #a7-print-area * {
+    visibility: visible;
+  }
+
+  @page {
+    size: A7 portrait;
+    margin: 0;
+  }
+}
