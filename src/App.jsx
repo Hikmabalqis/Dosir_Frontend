@@ -1,65 +1,69 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './context/AuthContext';
-import { SidebarProvider } from './context/SidebarContext';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import { SidebarProvider } from "./context/SidebarContext";
 
 // Components
-import Navbar from './components/Navbar';
-import Sidebar from './components/Sidebar';
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
 
 // Pages
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 
 // Loker
-import LokerList from './pages/LokerList';
-import LokerForm from './pages/LokerForm';
-import LokerDetail from './pages/LokerDetail';
+import LokerList from "./pages/LokerList";
+import LokerForm from "./pages/LokerForm";
+import LokerDetail from "./pages/LokerDetail";
 
 // Box
-import BoxList from './pages/BoxList';
-import BoxForm from './pages/BoxForm';
-import BoxDetail from './pages/BoxDetail';
+import BoxList from "./pages/BoxList";
+import BoxForm from "./pages/BoxForm";
+import BoxDetail from "./pages/BoxDetail";
 
 // Dokumen
-import DokumenList from './pages/DokumenList';
-import DokumenForm from './pages/DokumenForm';
+import DokumenList from "./pages/DokumenList";
+import DokumenForm from "./pages/DokumenForm";
 
 // Admin Management
-import AdminList from './pages/AdminList';
-import AdminForm from './pages/AdminForm';
+import AdminList from "./pages/AdminList";
+import AdminForm from "./pages/AdminForm";
 
 // Jenis Berkas
-import JenisDokumenPage from './pages/JenisDokumenPage';
+import JenisDokumenPage from "./pages/JenisDokumenPage";
 
-import './App.css';
+import "./App.css";
 
 // Protected Route Component dengan Debug
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
-  
+
+  <h1>TEST UPDATE DOSIR</h1>;
+
   // Debug log
-  console.log('🔐 ProtectedRoute:', { isAuthenticated, loading });
-  
+  console.log("🔐 ProtectedRoute:", { isAuthenticated, loading });
+
   if (loading) {
-    return <div style={{ padding: '2rem', textAlign: 'center' }}>Loading...</div>;
+    return (
+      <div style={{ padding: "2rem", textAlign: "center" }}>Loading...</div>
+    );
   }
-  
+
   if (!isAuthenticated) {
-    console.log('❌ Redirecting to login');
+    console.log("❌ Redirecting to login");
     return <Navigate to="/login" replace />;
   }
-  
+
   return children;
 };
 
 // Layout Component
 const Layout = ({ children }) => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+    <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       <Navbar />
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+      <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
         <Sidebar />
-        <main style={{ flex: 1, overflow: 'auto', backgroundColor: '#f8fafc' }}>
+        <main style={{ flex: 1, overflow: "auto", backgroundColor: "#f8fafc" }}>
           {children}
         </main>
       </div>
@@ -73,9 +77,9 @@ function AppContent() {
   return (
     <Routes>
       {/* Public Routes */}
-      <Route 
-        path="/login" 
-        element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login />} 
+      <Route
+        path="/login"
+        element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login />}
       />
 
       {/* Protected Routes */}
